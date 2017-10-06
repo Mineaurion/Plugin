@@ -1,0 +1,59 @@
+name: EconomyBukkit
+version: 1.0
+author: THEJean_Kevin
+main: com.mineaurion.EconomyBukkit.Main
+depend: [Vault]
+commands:
+    money:
+      description: Check / Distribute currency.
+      usage: /money balance
+    money balance:
+      description: check balance du joueurs
+      usage: /money balance <player>
+      permission: economie.money.player
+    money give:
+      description: donne de l'argent à un joueurs
+      permission: economie.money.admin  
+    money infinite:
+      description: argent infiny pour un joueurs
+      permission: economie.money.admin
+    money log:
+      description: montre les logs
+      permission: economie.money.admin
+    money set:
+      description: defini l'argent d'un joueurs    
+      permission: economie.money.admin
+    money take:
+      description: retire de l'argent à un joueurs
+      permission: economie.money.admin     
+    money top:
+      permission: economie.money.player      
+      description: check les tops en monney
+      usage: /money top
+    pay:
+      description: paye un autre joueurs
+      usage: /pay <player> <montant>
+      permission: economie.pay  
+    economieadmin:
+      description: commands admin
+      permission: economie.money.admin
+    economieadmin reload:
+      description: reload le plugin
+      permission: economie.money.admin
+    economieadmin check:
+      description: check s'il a l'argent pour effectuer les commands
+      permission: economie.money.admin
+      usage: /economieadmin check <player> <montant> /say premier commande /give <username> boots
+permissions:
+    economie.*:
+      description: Gives access to all economy commands
+      children:
+        economie.money.player: true
+        economie.money.admin: true
+        economie.pay: true
+    economie.money.player:
+       default: true
+    economie.money.admin:
+        default: false
+    economie.pay:
+       default: true   

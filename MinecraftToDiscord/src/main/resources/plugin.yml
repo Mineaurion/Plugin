@@ -1,0 +1,12 @@
+name: MinecraftToDiscord
+version: 1.0
+author: THEJean_Kevin
+main: com.mineaurion.tjk.MinecraftToDiscord.Thermos
+commands:
+    discordreload:
+      description: reload MinecraftToDiscord.
+      permission: MinecraftToDiscord
+    webhook:
+      description: send discord message
+      usage: /webhook (ton message)
+      permission: MinecraftToDiscord

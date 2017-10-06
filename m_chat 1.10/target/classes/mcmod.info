@@ -1,0 +1,17 @@
+[
+    {
+        "modid": "m_chat",
+        "name": "m_chat",
+        "version": "1.0",
+        "description": "An utility plugin",
+        "authorList": [
+            "THEJean_Kevin"
+        ],
+        "dependencies": [
+            "spongeapi@6.0.0"
+        ],
+        "requiredMods": [
+            "spongeapi@6.0.0"
+        ]
+    }
+]

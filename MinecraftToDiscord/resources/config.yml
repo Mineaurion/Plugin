@@ -1,0 +1,28 @@
+#Change to true when you have config this
+Setup: false
+
+
+
+QuickSetup:
+    Currency:
+        Minor: Coin
+        Name: Dollar
+        Sign: $
+    
+    DisplayMode: small
+    StartBalance: 100
+
+ 
+  
+  # Logs all monetary transactions passed through CraftConomy in a table.
+Logging:
+    Enabled: false
+
+
+Database:
+    Address: localhost
+    Port: 3306
+    Username: root
+    Password: youpi
+    Db: Craftconomy
+    Prefix: cc3_

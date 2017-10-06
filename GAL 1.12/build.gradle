@@ -1,0 +1,31 @@
+apply plugin: 'java'
+
+group = "GAL"
+version = "1.12"
+
+configurations {
+    shadow
+    compile.extendsFrom shadow
+}
+
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'spigot-repo'
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+
+dependencies {
+    compile "org.bukkit:bukkit:1.12.1-R0.1-SNAPSHOT"
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+task debug << {
+    println "java.home is " + System.properties['java.home']
+}
