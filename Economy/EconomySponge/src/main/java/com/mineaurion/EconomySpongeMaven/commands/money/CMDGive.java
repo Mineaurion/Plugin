@@ -13,7 +13,7 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.NamedCause;
+import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.transaction.ResultType;
 import org.spongepowered.api.service.economy.transaction.TransactionResult;
@@ -44,10 +44,10 @@ public class CMDGive implements CommandExecutor {
 			String amountText = TextSerializers.FORMATTING_CODE.serialize(defaultCurrency.format(amount));
 
 			TransactionResult transactionresult = playeraccount.deposit(defaultCurrency, amount,
-					Cause.of(NamedCause.of("Aurions", Main.getInstance().getPlugin())));
+					Cause.of(EventContext.empty(),Main.getInstance().getPlugin()));
 			if (transactionresult.getResult() == ResultType.SUCCESS) {
 				DateTime dateTime = DateTime.now(DateTimeZone.forID("Europe/Paris"));
-				Main.writeLog(player.getName(), LogInfo.GIVE, Cause.of(NamedCause.of("AurionsEconomy", "Sponge")), dateTime, amount.doubleValue());
+				Main.writeLog(player.getName(), LogInfo.GIVE, Cause.of(EventContext.empty(),Main.getInstance().getPlugin()), dateTime, amount.doubleValue());
 				Main.sendmessage("Tu as donne {{RED}}" + amountText + "{{WHITE}} a {{YELLOW}}" + player.getName(),
 						src.getName());
 

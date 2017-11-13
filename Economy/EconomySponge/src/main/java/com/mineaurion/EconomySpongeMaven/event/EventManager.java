@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.NamedCause;
+import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
 import com.mineaurion.EconomySpongeMaven.Main;
@@ -39,7 +39,7 @@ public class EventManager {
 				Main.getInstance().getAccountManager().getOrCreateAccount(player.getUniqueId()).get().setBalance(
 						Main.getInstance().getDefaultCurrency(),
 						new BigDecimal(MySQLEngine.getBalance(player.getUniqueId().toString(),true)),
-						Cause.of(NamedCause.of("AurionsEconomy", Main.getInstance().getPlugin())));
+						Cause.of(EventContext.empty(),Main.getInstance().getPlugin()));
 			}
 		}
 

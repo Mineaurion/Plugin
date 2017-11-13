@@ -10,7 +10,7 @@ import java.util.UUID;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.NamedCause;
+import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.service.context.Context;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.account.Account;
@@ -108,8 +108,7 @@ public class AAccount implements UniqueAccount {
 		BigDecimal curBalance = getBalance(currency, contexts);
 		
 		BigDecimal newBalance = curBalance.add(amount);
-		return setBalance(currency, newBalance,
-				Cause.of(NamedCause.of("AurionsEconomy", Main.getInstance().getPlugin())));
+		return setBalance(currency, newBalance,Cause.of(EventContext.empty(),Main.getInstance().getPlugin()));
 	}
 
 	@Override
@@ -124,8 +123,7 @@ public class AAccount implements UniqueAccount {
 					TransactionTypes.WITHDRAW);
 		}
 		BigDecimal newBalance = curBalance.subtract(amount);
-		return setBalance(currency, newBalance,
-				Cause.of(NamedCause.of("AurionsEconomy", Main.getInstance().getPlugin())));
+		return setBalance(currency, newBalance, Cause.of(EventContext.empty(),Main.getInstance().getPlugin()));
 	}
 
 	@Override

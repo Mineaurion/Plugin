@@ -13,7 +13,7 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.NamedCause;
+import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
@@ -41,9 +41,9 @@ public class CMDset implements CommandExecutor {
 			String amountText = TextSerializers.FORMATTING_CODE.serialize(defaultCurrency.format(amount));
 			AAccount playeraccount = (AAccount) accountManager.getOrCreateAccount(player.getUniqueId()).get();
 			playeraccount.setBalance(defaultCurrency, amount,
-					Cause.of(NamedCause.of("Aurions", Main.getInstance().getPlugin())));
+					Cause.of(EventContext.empty(),Main.getInstance().getPlugin()));
 			DateTime dateTime = DateTime.now(DateTimeZone.forID("Europe/Paris"));
-			Main.writeLog(player.getName(), LogInfo.SET, Cause.of(NamedCause.of("AurionsEconomy", "Sponge")), dateTime, amount.doubleValue());
+			Main.writeLog(player.getName(), LogInfo.SET, Cause.of(EventContext.empty(),Main.getInstance().getPlugin()), dateTime, amount.doubleValue());
 			Main.sendmessage("Balance set pour " + player.getName() + " a " + amountText, src.getName());
 		} else {
 			throw new CommandException(Text.of("Invalid amount! Must be a positive number!"));

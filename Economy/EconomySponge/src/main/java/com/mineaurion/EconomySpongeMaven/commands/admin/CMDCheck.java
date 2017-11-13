@@ -14,7 +14,7 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.NamedCause;
+import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.transaction.ResultType;
 import org.spongepowered.api.service.economy.transaction.TransactionResult;
@@ -46,10 +46,10 @@ public class CMDCheck implements CommandExecutor {
 			Text amountText = defaultCurrency.format(amount);
 
 			TransactionResult transactionresult = playeraccount.withdraw(defaultCurrency, amount,
-					Cause.of(NamedCause.of("Aurions", Main.getInstance().getPlugin())));
+					Cause.of(EventContext.empty(),Main.getInstance().getPlugin()));
 			if (transactionresult.getResult() == ResultType.SUCCESS||transactionresult.getResult() == ResultType.ACCOUNT_NO_FUNDS) {
 				DateTime dateTime = DateTime.now(DateTimeZone.forID("Europe/Paris"));
-				Main.writeLog(player.getName(), LogInfo.CHECK, Cause.of(NamedCause.of("AurionsEconomy", "Sponge")), dateTime, amount.doubleValue());
+				Main.writeLog(player.getName(), LogInfo.CHECK, Cause.of(EventContext.empty(),Main.getInstance().getPlugin()), dateTime, amount.doubleValue());
 				Main.sendmessage("Tu as retirer {{RED}}" + amountText.toPlainSingle() + "{{WHITE}} a {{YELLOW}}" + player.getName(),
 						src.getName());
 				String[] parts = commands.split("/");
