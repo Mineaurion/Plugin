@@ -16,6 +16,8 @@ import com.mineaurion.EconomyBukkit.LogInfo;
 import com.mineaurion.EconomyBukkit.Main;
 import com.mineaurion.EconomyBukkit.Mysql.MySQLEngine;
 
+import net.milkbowl.vault.economy.EconomyResponse;
+
 public class CommandPay implements CommandExecutor {
 
 	@SuppressWarnings("deprecation")
@@ -40,23 +42,18 @@ public class CommandPay implements CommandExecutor {
 						Pattern amountPattern = Pattern.compile("^[+]?(\\d*\\.)?\\d+$");
 						Matcher m = amountPattern.matcher(amount);
 						if (m.matches() && Double.parseDouble(amount) > 0) {
-							String Playerbal = Main.getInstance().format(Double.parseDouble(amount));
+							
 							double balance = MySQLEngine.getBalance(player.getUniqueId().toString(),false);
 							if (balance > Double.parseDouble(amount)) {
-								double newbalanceplayer = balance - Double.parseDouble(amount);
-								double balancerecipient = MySQLEngine.getBalance(recipient.getUniqueId().toString(),false);
-								double newbalancerecipient = balancerecipient + Double.parseDouble(amount);
 								
-								boolean result = MySQLEngine.setBalance(player.getUniqueId().toString(), newbalanceplayer);
-								boolean result2 = MySQLEngine.setBalance(recipient.getUniqueId().toString(), newbalancerecipient);
+								EconomyResponse result = Main.getInstance().getVaultconnector().withdrawPlayer(player, Double.parseDouble(amount));
+								EconomyResponse result2 = Main.getInstance().getVaultconnector().depositPlayer(recipient, Double.parseDouble(amount));
 								
-								Main.getInstance().getVaultconnector().withdrawPlayer(player, Double.parseDouble(amount));
-								Main.getInstance().getVaultconnector().depositPlayer(recipient, Double.parseDouble(amount));
-								
-								if(result&&result2){
+								if(result.transactionSuccess()&&result2.transactionSuccess()){
 									DateTime dateTime = DateTime.now(DateTimeZone.forID("Europe/Paris"));
 									Main.getInstance().writeLog(player.getName()+"->"+recipient.getName(), LogInfo.PAY, Cause.VAULT, dateTime,
 											Double.parseDouble(amount));
+									String Playerbal = Main.getInstance().format(Double.parseDouble(amount));
 									Main.sendmessage(
 											"Tu as donné {{RED}}" + Playerbal + "{{WHITE}} à {{YELLOW}}" + recipient.getName(),
 											sender.getName());
